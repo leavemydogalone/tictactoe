@@ -1,0 +1,25 @@
+.container {
+    height: 493px;
+    width: 500px;  
+    display: block;
+    position: relative;
+    margin: auto auto;
+    background-color: black;
+}
+
+.box {
+    display: inline-block;
+    height: 160px;
+    width: 160px;
+    text-align: center;
+    border: solid black 1px;
+    font-size: 110px;
+    margin: 1px;
+}
+
+.box button {
+    font-size: 110px;
+    width: 160px;
+    height: 160px;
+    background-color: white;
+}
