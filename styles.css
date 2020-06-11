@@ -1,11 +1,12 @@
 .header {
     height: 40px;
-    width: 100px;
+    width: 200px;
     display: block;
     position: relative;
     background-color: blue;
-    margin: 10px;
-    left: 45%;
+    margin: 10px auto;
+    /* left: 45%; */
+
 
 }
 .container {
@@ -13,7 +14,7 @@
     width: 500px;  
     display: inline-block;
     position: relative;
-    margin: auto auto;
+    margin: auto 101px;
     background-color: black;
 }
 
@@ -32,32 +33,45 @@
     width: 160px;
     height: 160px;
     background-color: white;
+    color: transparent;
 }
-.scoreDisplay {
+.scoreDisplay1 {
     float: left;
-    background-color: grey;
+    border: solid black 3px;
+    background-color:black;
     margin-right: 100px;
     position: relative;
     top: 50px;
     width: 300px;
-    height: 200px;
+    height: 128px;
+    display: block;
+}
+.scoreDisplay2 {
+    float: right;
+    border: solid black 3px;
+    background-color:black;
+    margin-left: 100px;
+    position: relative;
+    top: 50px;
+    width: 300px;
+    height: 128px;
     display: block;
 }
 .score {
     position: relative;
-    top: 80px;
-    background-color: red;
-    height: 30px;
-    width: 100px;
+    top: 7px;
+    background-color: #e48e8e;
+    height: 60px;
+    width: 100%;
     font-size: 40px;
 
 }
 .names {
     position: relative;
-    margin: 0px;
+    
     top: 0px;
-    background-color: blue;
-    height: 50px;
+    background-color:#35d0e4;
+    height: 60px;
     width: 100%;
     font-size: 40px;
 

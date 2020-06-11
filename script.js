@@ -9,7 +9,7 @@ const playerFactory = (name) => {
     }
 };
 const newPlayer = (() => {
-    let newPlayerButton = document.querySelector('.header').querySelector('button');
+    let newPlayerButton = document.querySelector('#newPlayer');
     const addNewPlayers = () => {
         let askName1 = prompt('What is the name of first player', '');
         if (askName1 === null || askName1 === "") askName1 = "Player 1";
@@ -17,12 +17,15 @@ const newPlayer = (() => {
         let askName2 = prompt('What is your name', '');
         if (askName2 === null || askName2 === "") askName2 = "Player 2";
         playerTwo = playerFactory(askName2);
+        displayController.render();
     };
-    window.onload = addNewPlayers();
     newPlayerButton.addEventListener('click', addNewPlayers);
-
+    return {
+        addNewPlayers,
+    };
     
 })();
+
 const game = (() => {
     let gameboard = ["q","p","","a","b","c","d","e","f"];
     let playerTurn = false;
@@ -33,9 +36,13 @@ const game = (() => {
     };
     squareButton.forEach((button) => {
         button.addEventListener('click', function(e) {
+            if(playerOne === undefined) return alert ('Please add players to the game');
+            if(e.target.textContent === 'X' || e.target.textContent === 'O') {
+                return alert ('Please pick an unoccupied spot')
+            };
             (playerTurn) ? arrayMarker = 'x' : arrayMarker = 'o';
             gameboard.splice((parseInt(`${button.id}`) - 1), 1, arrayMarker);
-            console.log(gameboard);
+            e.target.style.color = 'black';
             (playerTurn) ? e.target.textContent = 'X' : e.target.textContent = 'O';
             endCheck();
             turnChange();
@@ -56,23 +63,59 @@ const game = (() => {
     const gameEnd = () => {
         if (playerTurn) {
             playerTwo.playerScore += 1;
-            alert ('Player 2 wins!');
+            alert (`${playerTwo.playerName} wins!`);
         } else { 
             playerOne.playerScore += 1;
-            console.log ('Player 1 wins!');
+            alert (`${playerOne.playerName} wins!`);
         };
         gameboard = ["q","p","","a","b","c","d","e","f"];
         playerTurn = false;
+        displayController.render();
     };
+    const reset = (() => {
+        const resetButton = document.querySelector('#resetGame');
+        const resetFunc = () => {
+            gameboard = ["q","p","","a","b","c","d","e","f"];
+            playerTurn = false;
+            let container = document.querySelector('.container').querySelectorAll('button');
+            container.forEach((button) => {
+                button.textContent = "''";
+                button.style.color = 'transparent';
+            });
+        };
+        resetButton.addEventListener('click', resetFunc);
+        return {
+            resetFunc,
+        };
+    })();
     return {
         gameboard,
-        arrayMarker
+        arrayMarker,
+
     };
 })();
 
 const displayController = (() => {
+    let pOneScore = document.querySelector('.scoreDisplay1').querySelector('.score');
+    let pOneName = document.querySelector('.scoreDisplay1').querySelector('.names');
+    let pTwoScore = document.querySelector('.scoreDisplay2').querySelector('.score');
+    let pTwoName = document.querySelector('.scoreDisplay2').querySelector('.names');
+    
+    const updateScore = (display, player) => {
+        display.textContent = `Score: ${player.playerScore}`;
+    };
+    const updateName = (display, player) => {
+        display.textContent = `${player.playerName}`
+    };
     const render = () => {
-
+        updateScore(pOneScore, playerOne);
+        updateScore(pTwoScore, playerTwo);
+        updateName(pOneName, playerOne);
+        updateName(pTwoName, playerTwo);
+        console.log('hello');
+    };
+    return {
+        render,
     }
 })();
 
